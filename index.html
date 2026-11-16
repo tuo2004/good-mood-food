@@ -1,32 +1,147 @@
-<!doctype html>
-<html lang="en-GB">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Good Mood Food</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
-</head>
-<body>
-  <main>
-    <h1>Good Mood Food</h1>
-    <p>Take a moment to browse the menu.</p>
-    <section aria-labelledby="menu-heading">
-      <h2 id="menu-heading">Menu</h2>
-      <ul id="menu" class="menu"></ul>
-    </section>
-  </main>
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Good Mood Food | Dinner Menu</title>
+    <meta name="description" content="Explore the Good Mood Food dinner menu and build a demo order.">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&amp;family=DM+Sans:wght@400;700&amp;display=swap">
+    <link rel="stylesheet" href="style.css">
+    <script src="menu.js" defer></script>
+    <script src="script.js" defer></script>
+  </head>
 
-  <template id="dish-template">
-    <li class="dish">
-      <div class="photo-placeholder" aria-hidden="true">Photo to come</div>
-      <h3></h3>
-      <p class="price"></p>
-      <details>
-        <summary>View ingredients</summary>
-        <p class="ingredients"></p>
-      </details>
-    </li>
-  </template>
-</body>
+  <body id="top">
+    <header class="hero">
+      <div class="wrap">
+        <nav class="masthead" aria-label="Main navigation">
+          <a class="wordmark" href="#top">Good Mood Food</a>
+          <div class="header-links">
+            <a href="#about">About</a>
+            <a href="#menu">Menu</a>
+            <a href="#basket">Basket <span id="basket-count">(0)</span></a>
+          </div>
+        </nav>
+        <div class="cover">
+          <h1>The dinner <em>menu.</em></h1>
+          <p>Modern comfort food, from the first bite to the last spoonful.</p>
+          <a class="button hero-button" href="#menu">Explore the menu ↓</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="wrap about" id="about" aria-labelledby="about-heading">
+        <h2 id="about-heading">About Good Mood Food</h2>
+        <p>Our fictional restaurant brings familiar comfort food and seasonal flavours together. Start with something to share, find a hearty main and leave room for dessert.</p>
+      </section>
+
+      <nav class="menu-nav wrap" id="menu" aria-label="Menu sections">
+        <a href="#starters">Starters</a>
+        <a href="#mains">Mains</a>
+        <a href="#desserts">Desserts</a>
+        <a href="#drinks">Drinks</a>
+      </nav>
+
+      <div class="ordering">
+        <div class="order-tools" aria-label="Ordering tools">
+          <button class="button" type="button" data-panel="compare" aria-haspopup="dialog">Compare <span id="tool-compare-count">(0)</span></button>
+          <button class="button primary" type="button" data-panel="basket" aria-haspopup="dialog">Basket <span id="tool-basket-count">(0)</span></button>
+        </div>
+
+        <noscript><p class="wrap">Enable JavaScript to browse dishes and build a demo order.</p></noscript>
+        <div class="order-layout">
+          <div class="order-rail" id="compare-rail">
+            <section class="panel" id="compare" aria-labelledby="compare-heading">
+              <h2 id="compare-heading" tabindex="-1">Compare dishes</h2>
+              <p id="compare-help">Select up to two dishes from the menu.</p>
+              <div id="comparison"></div>
+            </section>
+          </div>
+
+          <div class="menu" id="menu-sections"></div>
+
+          <div class="order-rail" id="basket-rail">
+            <section class="panel" id="basket" aria-labelledby="basket-heading">
+              <h2 id="basket-heading" tabindex="-1">Basket</h2>
+              <p id="basket-note">No real orders or payments will be taken.</p>
+              <p id="basket-empty">Your basket is empty.</p>
+              <ul class="basket-list" id="basket-items" aria-label="Selected dishes"></ul>
+              <div class="basket-total"><strong>Total</strong><strong id="basket-total">£0.00</strong></div>
+              <button class="button primary" id="review-order" type="button" disabled>Review demo order</button>
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <dialog class="order-drawer" id="order-drawer">
+      <div class="drawer-controls">
+        <button class="button" id="close-drawer" type="button">Back to menu</button>
+      </div>
+    </dialog>
+
+    <dialog id="checkout" aria-labelledby="checkout-heading">
+      <h2 id="checkout-heading">Review demo order</h2>
+      <div id="checkout-review">
+        <p>No payment or personal details are required.</p>
+        <ul class="basket-list" id="order-items" aria-label="Order summary"></ul>
+        <div class="basket-total"><strong>Total</strong><strong id="order-total"></strong></div>
+      </div>
+      <p id="order-confirmation" hidden></p>
+      <div class="actions dialog-actions">
+        <button class="button" id="close-checkout" type="button" autofocus>Back to basket</button>
+        <button class="button primary" id="confirm-order" type="button">Confirm demo order</button>
+      </div>
+    </dialog>
+
+    <p class="sr-only" id="status" role="status" aria-atomic="true"></p>
+    <footer>
+      <div class="wrap">
+        <small>Good Mood Food · Graduation project concept</small>
+        <a href="#top">Back to top ↑</a>
+      </div>
+    </footer>
+
+    <template id="dish-template">
+      <article class="dish">
+        <div class="line">
+          <h3></h3>
+          <span class="price"></span>
+        </div>
+        <p class="description"></p>
+        <details>
+          <summary>Dish details</summary>
+          <div class="dish-details">
+            <div class="photo-placeholder">Photo coming soon</div>
+            <dl>
+              <dt>Ingredients</dt>
+              <dd class="ingredients"></dd>
+              <dt>Flavour</dt>
+              <dd class="flavour"></dd>
+              <dt>Allergens</dt>
+              <dd class="allergens"></dd>
+            </dl>
+          </div>
+        </details>
+        <div class="actions">
+          <button class="button primary add" type="button">Add to basket</button>
+          <button class="button compare" type="button" aria-pressed="false">Compare</button>
+        </div>
+      </article>
+    </template>
+
+    <template id="basket-row-template">
+      <li class="basket-row">
+        <strong class="basket-name"></strong>
+        <span class="basket-subtotal"></span>
+        <div class="actions quantity-controls">
+          <button class="button decrease" type="button">−</button>
+          <span class="quantity"></span>
+          <button class="button increase" type="button">+</button>
+          <button class="text-button remove" type="button">Remove</button>
+        </div>
+      </li>
+    </template>
+  </body>
 </html>
