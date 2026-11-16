@@ -1,0 +1,40 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font: 1rem/1.5 system-ui, sans-serif;
+  color: #222;
+  background: #faf9f6;
+}
+
+main {
+  max-width: 64rem;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.menu {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+}
+
+.dish {
+  border: 1px solid #333;
+  border-radius: .5rem;
+  background: white;
+  padding: 1rem;
+}
+
+.photo-placeholder {
+  display: grid;
+  place-items: center;
+  min-height: 8rem;
+  border: 1px solid #333;
+  color: #555;
+}
+
+.price { font-weight: 600; }
+summary { cursor: pointer; }

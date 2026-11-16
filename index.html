@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Good Mood Food</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main>
+    <h1>Good Mood Food</h1>
+    <p>Take a moment to browse the menu.</p>
+    <section aria-labelledby="menu-heading">
+      <h2 id="menu-heading">Menu</h2>
+      <ul id="menu" class="menu"></ul>
+    </section>
+  </main>
+
+  <template id="dish-template">
+    <li class="dish">
+      <div class="photo-placeholder" aria-hidden="true">Photo to come</div>
+      <h3></h3>
+      <p class="price"></p>
+      <details>
+        <summary>View ingredients</summary>
+        <p class="ingredients"></p>
+      </details>
+    </li>
+  </template>
+</body>
+</html>
